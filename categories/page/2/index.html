@@ -713,6 +713,9 @@ window.WIDGET = {
 
 
 const QWEATHER_API_KEY = 'b1c830bd56d4439abbb685e13eac45d1';
+const QWEATHER_API_HOST = 'my5khvkha4.re.qweatherapi.com'; 
+
+
 let currentCityName = '当前位置';
 let currentCityId = '';
 let heWeatherInitialized = false;
@@ -758,7 +761,8 @@ async function searchCity() {
   
   resultDiv.innerHTML = '<div style="padding:15px; text-align:center; color:#666;"><div style="display:inline-block; width:20px; height:20px; border:2px solid #f3f3f3; border-top:2px solid #3498db; border-radius:50%; animation:spin 1s linear infinite; margin-right:10px;"></div> 搜索中...</div>';
   
-  const url = `https://geoapi.qweather.com/v2/city/lookup?key=${QWEATHER_API_KEY}&location=${encodeURIComponent(input)}&range=cn`;
+  
+  const url = `https://${QWEATHER_API_HOST}/geo/v2/city/lookup?key=${QWEATHER_API_KEY}&location=${encodeURIComponent(input)}&range=cn`;
   
   try {
     const response = await fetch(url);
@@ -822,7 +826,8 @@ async function getCityWeather(cityId, cityName) {
     </div>
   `;
   
-  const weatherUrl = `https://devapi.qweather.com/v7/weather/now?key=${QWEATHER_API_KEY}&location=${cityId}`;
+  
+  const weatherUrl = `https://${QWEATHER_API_HOST}/v7/weather/now?key=${QWEATHER_API_KEY}&location=${cityId}`;
   
   try {
     const response = await fetch(weatherUrl);
@@ -911,63 +916,71 @@ function updateExternalWeatherDisplay(cityName, temperature, weatherText, icon =
 }
 
 
+async function initDefaultChengduWeather() {
+  
+  console.log('开始初始化默认成都天气...');
+  const searchUrl = `https://${QWEATHER_API_HOST}/geo/v2/city/lookup?key=${QWEATHER_API_KEY}&location=成都&range=cn`;
+  try {
+    const searchRes = await fetch(searchUrl);
+    const searchData = await searchRes.json();
+    if (searchData.code === '200' && searchData.location && searchData.location.length > 0) {
+      const chengduId = searchData.location[0].id;
+      const chengduName = searchData.location[0].name;
+      console.log(`找到城市：${chengduName}, ID: ${chengduId}`);
+      
+      const weatherUrl = `https://${QWEATHER_API_HOST}/v7/weather/now?key=${QWEATHER_API_KEY}&location=${chengduId}`;
+      const weatherRes = await fetch(weatherUrl);
+      const weatherData = await weatherRes.json();
+      if (weatherData.code === '200') {
+        const now = weatherData.now;
+        console.log(`成功获取${chengduName}天气：${now.temp}°C ${now.text}`);
+        
+        updateExternalWeatherDisplay(chengduName, now.temp, now.text);
+        currentCityName = chengduName;
+        currentCityId = chengduId;
+      } else {
+        console.warn('获取成都天气数据失败:', weatherData);
+        updateExternalWeatherDisplay('天气', '--', '加载失败');
+      }
+    } else {
+      console.warn('搜索成都城市信息失败:', searchData);
+      updateExternalWeatherDisplay('天气', '--', '初始化失败');
+    }
+  } catch (error) {
+    console.error('初始化默认天气过程中发生错误:', error);
+    updateExternalWeatherDisplay('天气', '--', '网络错误');
+  }
+}
+
+
 window.addEventListener('load', function() {
   setTimeout(function() {
     
-    if (window.HE_WEATHER_INITIALIZED || heWeatherInitialized) {
-      console.log('和风天气官方插件已就绪。');
-      updateExternalWeatherDisplay('当前位置', '--', '点击查询');
-      return;
-    }
-    
-    
     const externalDisplay = document.querySelector('#he-plugin-simple');
     if (externalDisplay && externalDisplay.innerHTML.trim() === '') {
-      updateExternalWeatherDisplay('天气服务', '--', '点击查询');
+      updateExternalWeatherDisplay('加载中', '...', '请稍候');
     }
     
     
-    const cdnSources = [
-      'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0',
-      'https://widget.qweather.cn/simple/static/js/he-simple-common.js?v=2.0' 
-    ];
-    
-    let currentSourceIndex = 0;
-    const script = document.createElement('script');
-    script.id = 'qweather-script';
-    
-    
-    function loadScript(source) {
-      script.src = source;
+    if (!window.HE_WEATHER_INITIALIZED && !heWeatherInitialized) {
+      const script = document.createElement('script');
+      script.id = 'qweather-script';
+      script.src = 'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0';
       script.onload = function() {
-        console.log('和风天气插件加载成功:', source);
+        console.log('和风天气官方插件加载成功');
         window.HE_WEATHER_INITIALIZED = true;
         heWeatherInitialized = true;
-        
-        setTimeout(() => {
-          updateExternalWeatherDisplay('天气服务', '就绪', '点击查询', '✅');
-        }, 300);
       };
-      
       script.onerror = function() {
-        console.warn('和风天气CDN加载失败，尝试备用源:', source);
-        currentSourceIndex++;
-        if (currentSourceIndex < cdnSources.length) {
-          loadScript(cdnSources[currentSourceIndex]); 
-        } else {
-          console.log('所有和风天气CDN源均尝试失败，将使用自定义界面。');
-          
-          updateExternalWeatherDisplay('天气服务', '--', '点击查询', '🌤️');
-        }
+        console.log('和风天气官方CDN加载失败，将仅使用自定义界面。');
       };
-      
       document.body.appendChild(script);
     }
     
     
-    loadScript(cdnSources[currentSourceIndex]);
+    initDefaultChengduWeather();
     
-  }, 800); 
+  }, 1000); 
 });
 
 
