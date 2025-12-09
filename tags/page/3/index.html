@@ -493,13 +493,33 @@
 
 
 
+<link rel="dns-prefetch" href="//cdn.sencdn.com">
+<link rel="preconnect" href="//cdn.sencdn.com" crossorigin>
+<link rel="dns-prefetch" href="//lf-cdn.coze.cn">
+<link rel="preconnect" href="//lf-cdn.coze.cn" crossorigin>
+
+
+
+
 <div id="weather-plugin-wrapper">
-    
-    <script src="https://cdn.sencdn.com/widget2/static/js/bundle.js"></script>
-    
-    
     <script>
-      
+      (function(a,h,g,f,e,d,c,b){
+          b=function(){
+              d=h.createElement(g);
+              c=h.getElementsByTagName(g)[0];
+              d.src=e;
+              d.charset="utf-8";
+              d.async=1; 
+              c.parentNode.insertBefore(d,c)
+          };
+          
+          
+          a["SeniverseWeatherWidgetObject"]=f;
+          a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});
+          a[f].l=+new Date();
+          if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}
+      })(window,document,"script","https://cdn.sencdn.com/widget2/static/js/bundle.js","window.SeniverseWeatherWidget");
+
       window.SeniverseWeatherWidget('show', {
         flavor: "bubble",
         location: "WX4FBXXFKE4F",
@@ -517,23 +537,26 @@
 
 
 
-<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js" defer></script>
 <script>
-  new CozeWebSDK.WebChatClient({
-    config: {
-      bot_id: '7581667069725474867',
-    },
-    componentProps: {
-      title: '飞鼠', 
-    },
-    auth: {
-      type: 'token',
-      
-      token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
-      onRefreshToken: function () {
-        return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP'
-      }
-    }
+  
+  window.addEventListener('load', function() {
+      new CozeWebSDK.WebChatClient({
+        config: {
+          bot_id: '7581667069725474867',
+        },
+        componentProps: {
+          title: '智能助手', 
+        },
+        auth: {
+          type: 'token',
+          token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
+          onRefreshToken: function () {
+            return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP'
+          }
+        }
+      });
   });
 </script>
 
@@ -547,7 +570,7 @@
         left: 20px !important;
         bottom: 20px !important;
         z-index: 99999 !important;
-        display: block !important;  
+        display: block !important;
     }
     
      
