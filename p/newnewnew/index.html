@@ -522,16 +522,18 @@
 <script>
   new CozeWebSDK.WebChatClient({
     config: {
-      bot_id: '7581667069725474867', 
+      
+      bot_id: '7581667069725474867',
     },
     componentProps: {
-      title: '智能助手', 
+      title: '飞鼠', 
     },
     auth: {
       type: 'token',
-      token: 'pat_9GWlTncNQ0uAyV2MeS2cJBiQBFz41RSfLUQc4cRIJF3IA9hYzlgRpauKo5P6aC89',
+      
+      token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
       onRefreshToken: function () {
-        return 'pat_9GWlTncNQ0uAyV2MeS2cJBiQBFz41RSfLUQc4cRIJF3IA9hYzlgRpauKo5P6aC89'
+        return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP'
       }
     }
   });
@@ -547,7 +549,6 @@
         left: 20px !important;
         bottom: 20px !important;
         z-index: 99999 !important;
-        pointer-events: auto !important;
     }
     
      
@@ -556,13 +557,6 @@
         right: 20px !important;
         bottom: 20px !important;
         z-index: 100000 !important;
-    }
-
-     
-    @media (max-width: 768px) {
-        #tp-weather-widget {
-            display: none !important;
-        }
     }
 </style>
     </body>
