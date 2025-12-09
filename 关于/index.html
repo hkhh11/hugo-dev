@@ -834,13 +834,12 @@ async function getCityWeather(cityId, cityName) {
       };
       
       const icon = weatherIcons[now.text] || '🌤️';
-      const tempColor = now.temp > 30 ? '#e74c3c' : now.temp > 20 ? '#e67e22' : now.temp > 10 ? '#27ae60' : '#3498db';
       
       detailDiv.innerHTML = `
         <h3>${icon} ${cityName}</h3>
         <div style="background:white; padding:15px; border-radius:10px; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
           <div style="text-align:center; margin-bottom:10px;">
-            <span style="font-size:32px; color:${tempColor}; font-weight:bold;">${now.temp}°C</span>
+            <span style="font-size:32px; color:white; font-weight:bold;">${now.temp}°C</span>
             <div style="color:#7f8c8d; font-size:14px;">体感 ${now.feelsLike}°C</div>
           </div>
           <p><strong>天气状况：</strong><span style="float:right;">${now.text}</span></p>
@@ -873,7 +872,6 @@ async function getCityWeather(cityId, cityName) {
 function updateExternalWeatherDisplay(cityName, temperature, weatherText, icon = '🌤️') {
   const externalDisplay = document.querySelector('#he-plugin-simple');
   if (externalDisplay) {
-    const tempColor = temperature > 30 ? '#e74c3c' : temperature > 20 ? '#e67e22' : temperature > 10 ? '#27ae60' : '#3498db';
     
     externalDisplay.innerHTML = `
       <div style="
@@ -892,7 +890,7 @@ function updateExternalWeatherDisplay(cityName, temperature, weatherText, icon =
         <div style="font-size: 15px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
           ${icon} ${cityName}
         </div>
-        <div style="font-size: 24px; margin: 8px 0; font-weight: 700; color:${tempColor};">${temperature}°C</div>
+        <div style="font-size: 24px; margin: 8px 0; font-weight: 700; color:white;">${temperature}°C</div>
         <div style="font-size: 13px; opacity: 0.95; margin-bottom: 6px;">${weatherText}</div>
         <div style="font-size: 11px; opacity: 0.7; letter-spacing: 0.5px;">点击管理</div>
       </div>
