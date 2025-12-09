@@ -491,7 +491,7 @@
 
 <div id="weather-plugin-wrapper">
     <script>
-      (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}})(window,document,"script","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime()/100000000).toString(),10),"window.SeniverseWeatherWidget");
+      (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}})(window,document,"script","https://cdn.sencdn.com/widget2/static/js/bundle.js","window.SeniverseWeatherWidget");
       
       window.SeniverseWeatherWidget('show', {
         flavor: "bubble",
@@ -500,7 +500,6 @@
         language: "zh-Hans",
         unit: "c",
         theme: "auto",
-        
         token: "P0IN6JEuje8nrTEWg", 
         hover: "enabled",
         container: "tp-weather-widget"
@@ -515,15 +514,13 @@
 <script>
   new CozeWebSDK.WebChatClient({
     config: {
-      
-      bot_id: '7581667069725474867',
+      bot_id: '7581667069725474867', 
     },
     componentProps: {
-      title: '飞鼠', 
+      title: '智能助手', 
     },
     auth: {
       type: 'token',
-      
       token: 'pat_9GWlTncNQ0uAyV2MeS2cJBiQBFz41RSfLUQc4cRIJF3IA9hYzlgRpauKo5P6aC89',
       onRefreshToken: function () {
         return 'pat_9GWlTncNQ0uAyV2MeS2cJBiQBFz41RSfLUQc4cRIJF3IA9hYzlgRpauKo5P6aC89'
