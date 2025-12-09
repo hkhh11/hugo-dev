@@ -316,70 +316,223 @@
 
 
 
-<div id="weather-plugin-wrapper">
-    <script>
-      (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}})(window,document,"script","SeniverseWeatherWidget","https://cdn.sencdn.com/widget2/static/js/bundle.js");
-      
-      
-      
-      window.SeniverseWeatherWidget('show', {
-        flavor: "bubble",
-        location: "WX4FBXXFKE4F",
-        geolocation: true,
-        language: "zh-Hans",
-        unit: "c",
-        theme: "auto",
-        token: "P0IN6JEuje8nrTEWg", 
-        hover: "enabled",
-        container: "tp-weather-widget"
-      });
-    </script>
-</div>
+<style>
+   
+  #he-plugin-simple {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    z-index: 99998 !important;
+    pointer-events: auto !important;
+  }
+  
+   
+  div[id^="coze-"] {
+    z-index: 100000 !important;
+  }
+</style>
 
 
+<div id="he-plugin-simple"></div>
 
-
-<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
 <script>
-  window.addEventListener('load', function() {
-      new CozeWebSDK.WebChatClient({
-        config: {
-          bot_id: '7581667069725474867',
-        },
-        componentProps: {
-          title: '飞鼠', 
-        },
-        auth: {
-          type: 'token',
-          token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
-          onRefreshToken: function () {
-            return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP'
-          }
+
+window.WIDGET = {
+  "CONFIG": {
+    "layout": "1",
+    "width": "450",
+    "height": "150",
+    "background": "5",
+    "dataColor": "000000",
+    "borderRadius": "5",
+    "key": "b1c830bd56d4439abbb685e13eac45d1",  
+    
+    "credentials": "CFB4NW2TBG",  
+    "modules": "01234",  
+    "language": "zh",
+    "fixed": "true",
+    "vertical": "bottom",
+    "horizontal": "left",
+    "left": "20",
+    "bottom": "20",
+    "city": "",  
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "FFFFFF",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "tempColor": "FFFFFF",
+    "tempSize": "16",
+    "windColor": "FFFFFF",
+    "windSize": "16",
+    "humidityColor": "FFFFFF",
+    "humiditySize": "16",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "opacity": "0.9"
+  }
+};
+
+
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    if (!document.getElementById('qweather-script')) {
+      var script = document.createElement('script');
+      script.id = 'qweather-script';
+      script.src = 'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0';
+      script.async = true;
+      script.defer = true;
+      
+      script.onload = function() {
+        console.log('和风天气脚本加载成功');
+      };
+      
+      script.onerror = function() {
+        console.error('和风天气脚本加载失败，尝试备用方案');
+        
+        var fallbackScript = document.createElement('script');
+        fallbackScript.src = 'https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0';
+        document.body.appendChild(fallbackScript);
+        
+        
+        showFallbackWeather();
+      };
+      
+      document.body.appendChild(script);
+    }
+  }, 500);
+});
+
+
+function showFallbackWeather() {
+  var weatherDiv = document.getElementById('he-plugin-simple');
+  if (weatherDiv) {
+    weatherDiv.innerHTML = `
+      <div style="background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; backdrop-filter: blur(10px);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 20px;">🌤️</span>
+          <div>
+            <div style="font-size: 16px; font-weight: bold;">天气服务</div>
+            <div style="font-size: 12px; opacity: 0.8;">和风天气加载中...</div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(locationData => {
+        
+        return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${locationData.latitude}&longitude=${locationData.longitude}&current_weather=true&timezone=auto`);
+      })
+      .then(response => response.json())
+      .then(weatherData => {
+        if (weatherData.current_weather) {
+          var temp = Math.round(weatherData.current_weather.temperature);
+          var weatherDiv = document.getElementById('he-plugin-simple');
+          weatherDiv.innerHTML = `
+            <div style="background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; backdrop-filter: blur(10px); min-width: 120px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 24px;">${getWeatherEmoji(weatherData.current_weather.weathercode)}</span>
+                <div>
+                  <div style="font-size: 16px; font-weight: bold;">${temp}°C</div>
+                  <div style="font-size: 12px; opacity: 0.8;">当前天气</div>
+                </div>
+              </div>
+            </div>
+          `;
         }
+      })
+      .catch(err => {
+        console.log('使用备用天气API:', err);
       });
-  });
+  }
+}
+
+
+function getWeatherEmoji(code) {
+  const emojiMap = {
+    0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+    45: '🌫️', 48: '🌫️',
+    51: '🌦️', 53: '🌦️', 55: '🌦️',
+    61: '🌧️', 63: '🌧️', 65: '🌧️',
+    71: '🌨️', 73: '🌨️', 75: '🌨️',
+    80: '🌦️', 81: '🌧️', 82: '⛈️',
+    85: '🌨️', 86: '🌨️',
+    95: '⛈️', 96: '⛈️', 99: '⛈️'
+  };
+  return emojiMap[code] || '🌤️';
+}
 </script>
 
 
 
 
-<style>
-     
-    #tp-weather-widget {
-        position: fixed !important;
-        left: 20px !important;
-        bottom: 20px !important;
-        z-index: 99999 !important;
-        display: block !important;
+<script>
+window.addEventListener('load', function() {
+  
+  setTimeout(function() {
+    if (!window.CozeSDKLoaded && typeof CozeWebSDK === 'undefined') {
+      var script = document.createElement('script');
+      script.src = 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js';
+      script.async = true;
+      script.defer = true;
+      
+      script.onload = function() {
+        console.log('扣子AI脚本加载成功');
+        try {
+          new CozeWebSDK.WebChatClient({
+            config: {
+              bot_id: '7581667069725474867',
+            },
+            componentProps: {
+              title: '飞鼠',
+            },
+            auth: {
+              type: 'token',
+              token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
+              onRefreshToken: function () {
+                return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP';
+              }
+            }
+          });
+          window.CozeSDKLoaded = true;
+        } catch (error) {
+          console.error('初始化扣子AI失败:', error);
+        }
+      };
+      
+      script.onerror = function() {
+        console.error('扣子AI脚本加载失败');
+      };
+      
+      document.body.appendChild(script);
+    } else if (typeof CozeWebSDK !== 'undefined') {
+      
+      try {
+        new CozeWebSDK.WebChatClient({
+          config: {
+            bot_id: '7581667069725474867',
+          },
+          componentProps: {
+            title: '飞鼠',
+          },
+          auth: {
+            type: 'token',
+            token: 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP',
+            onRefreshToken: function () {
+              return 'pat_TGgqBzWr74ythQo4NWGMEd7pXd07VO4Oq0Jvk4yIH1uLiztrMDINqKR3QmLjLRdP';
+            }
+          }
+        });
+      } catch (error) {
+        console.error('初始化扣子AI失败:', error);
+      }
     }
-    
-     
-    div[id^="coze-"] {
-        position: fixed !important;
-        right: 20px !important;
-        bottom: 20px !important;
-        z-index: 100000 !important;
-    }
-</style>
+  }, 1000); 
+});
+</script>
     </body>
 </html>
