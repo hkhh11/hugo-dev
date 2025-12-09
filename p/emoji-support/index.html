@@ -616,68 +616,86 @@
     left: 20px !important;
     z-index: 99998 !important;
     cursor: pointer !important;
-    min-width: 100px;
-    min-height: 40px;
+    min-width: 120px;
+    min-height: 50px;
   }
 
    
   #weatherControlPanel {
     display: none;
     position: fixed;
-    bottom: 80px;
+    bottom: 90px;
     left: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
     z-index: 100001;
-    min-width: 320px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-width: 340px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   #weatherControlPanel h4 {
     margin-top: 0;
-    margin-bottom: 15px;
-    color: #333;
-    font-size: 18px;
+    margin-bottom: 18px;
+    color: #2c3e50;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   #citySearchInput {
-    width: calc(100% - 70px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+    width: calc(100% - 75px);
+    padding: 11px 14px;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    font-size: 15px;
     box-sizing: border-box;
+    transition: all 0.3s;
+    background: #f8fafc;
   }
 
   #citySearchInput:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: #3498db;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
   }
 
   button {
-    background-color: #4a90e2;
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 11px 18px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 14px;
-    margin-left: 5px;
-    transition: background-color 0.2s;
+    font-size: 15px;
+    margin-left: 6px;
+    font-weight: 500;
+    transition: all 0.3s;
   }
 
   button:hover {
-    background-color: #3a7bc8;
+    background: linear-gradient(135deg, #2980b9, #2573a7);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
   }
 
   #citySearchResult {
-    margin-top: 15px;
-    max-height: 200px;
+    margin-top: 18px;
+    max-height: 240px;
     overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
   }
 
   #citySearchResult ul {
@@ -687,14 +705,19 @@
   }
 
   #citySearchResult li {
-    padding: 10px;
+    padding: 12px 15px;
     cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s;
+    border-bottom: 1px solid #f8f9fa;
+    transition: all 0.25s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   #citySearchResult li:hover {
-    background-color: #f5f9ff;
+    background: linear-gradient(90deg, #e3f2fd, #f0f7ff);
+    border-left: 4px solid #3498db;
+    padding-left: 11px;
   }
 
   #citySearchResult li:last-child {
@@ -702,30 +725,44 @@
   }
 
   #weatherDetail {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f8fafc;
-    border-radius: 8px;
+    margin-top: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #f8fafc, #eef5ff);
+    border-radius: 12px;
+    border: 1px solid #e1ecf7;
   }
 
   #weatherDetail h3 {
     margin-top: 0;
     color: #2c3e50;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   #weatherDetail p {
-    margin: 8px 0;
-    color: #555;
+    margin: 9px 0;
+    color: #34495e;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #weatherDetail p strong {
+    color: #2c3e50;
   }
 
   .close-btn {
-    background-color: #95a5a6 !important;
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d) !important;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 18px;
+    padding: 12px;
+    font-size: 15px;
   }
 
   .close-btn:hover {
-    background-color: #7f8c8d !important;
+    background: linear-gradient(135deg, #7f8c8d, #6c7b7d) !important;
+    transform: translateY(-1px);
   }
 
    
@@ -741,14 +778,14 @@
 <div id="weatherControlPanel">
   <h4>🌤️ 天气查询与管理</h4>
   
-  <div>
-    <input type="text" id="citySearchInput" placeholder="输入城市名，例如：北京、上海" />
+  <div style="display: flex; gap: 8px;">
+    <input type="text" id="citySearchInput" placeholder="输入城市名，如：北京、上海" />
     <button onclick="searchCity()">搜索</button>
   </div>
   
   <div id="citySearchResult"></div>
   
-  <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+  <hr style="margin: 22px 0; border: none; border-top: 1px solid #eaeaea;">
   
   <div id="weatherDetail">
     <p>请搜索并选择一个城市来查看实时天气。</p>
@@ -766,7 +803,7 @@ window.WIDGET = {
     "height": "150",
     "background": "5",
     "dataColor": "000000",
-    "borderRadius": "10",
+    "borderRadius": "12",
     "key": "b1c830bd56d4439abbb685e13eac45d1",
     "credentials": "CFB4NW2TBG",
     "modules": "1024",
@@ -777,7 +814,7 @@ window.WIDGET = {
     "left": "20",
     "bottom": "20",
     "city": "",
-    "backgroundColor": "RGBA(255, 255, 255, 0.1)",
+    "backgroundColor": "RGBA(255, 255, 255, 0.15)",
     "shadow": "1"
   }
 };
@@ -786,11 +823,19 @@ window.WIDGET = {
 const QWEATHER_API_KEY = 'b1c830bd56d4439abbb685e13eac45d1';
 let currentCityName = '当前位置';
 let currentCityId = '';
+let heWeatherInitialized = false;
 
 
 function toggleWeatherPanel() {
   const panel = document.getElementById('weatherControlPanel');
-  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  const isVisible = panel.style.display === 'block';
+  panel.style.display = isVisible ? 'none' : 'block';
+  
+  if (!isVisible) {
+    
+    document.getElementById('citySearchResult').innerHTML = '';
+    document.getElementById('weatherDetail').innerHTML = '<p>请搜索并选择一个城市来查看实时天气。</p>';
+  }
 }
 
 function closePanel() {
@@ -815,11 +860,11 @@ async function searchCity() {
   const resultDiv = document.getElementById('citySearchResult');
   
   if (!input) {
-    resultDiv.innerHTML = '<p style="color:#e74c3c;">请输入城市名称</p>';
+    resultDiv.innerHTML = '<div style="padding:12px; color:#e74c3c; background:#ffeaea; border-radius:8px;">请输入城市名称</div>';
     return;
   }
   
-  resultDiv.innerHTML = '<p>🔍 搜索中...</p>';
+  resultDiv.innerHTML = '<div style="padding:15px; text-align:center; color:#666;"><div style="display:inline-block; width:20px; height:20px; border:2px solid #f3f3f3; border-top:2px solid #3498db; border-radius:50%; animation:spin 1s linear infinite; margin-right:10px;"></div> 搜索中...</div>';
   
   const url = `https://geoapi.qweather.com/v2/city/lookup?key=${QWEATHER_API_KEY}&location=${encodeURIComponent(input)}&range=cn`;
   
@@ -828,17 +873,20 @@ async function searchCity() {
     const data = await response.json();
     
     if (data.code === '200' && data.location && data.location.length > 0) {
-      let html = '<p>请选择以下结果：</p><ul>';
+      let html = '<div style="padding:8px 15px; color:#7f8c8d; font-size:14px;">找到以下结果：</div><ul>';
       
       data.location.forEach(city => {
         const displayName = `${city.name}${city.adm2 && city.adm2 !== city.name ? `, ${city.adm2}` : ''}`;
         html += `
-          <li onclick="selectCity('${city.id}', '${city.name}', '${city.adm2 || city.name}')">
-            <strong>${city.name}</strong>
-            <span style="color:#666; font-size:0.9em; margin-left:8px;">
-              ${city.adm2 && city.adm2 !== city.name ? city.adm2 : ''}
-              ${city.country === 'CN' ? '中国' : city.country}
-            </span>
+          <li onclick="selectCity('${city.id}', '${city.name.replace(/'/g, "\\'")}', '${(city.adm2 || city.name).replace(/'/g, "\\'")}')">
+            <div>
+              <strong style="color:#2c3e50;">${city.name}</strong>
+              <div style="color:#7f8c8d; font-size:13px; margin-top:3px;">
+                ${city.adm2 && city.adm2 !== city.name ? city.adm2 : ''}
+                ${city.country === 'CN' ? '中国' : city.country}
+              </div>
+            </div>
+            <div style="color:#3498db; font-size:14px;">→</div>
           </li>
         `;
       });
@@ -846,10 +894,13 @@ async function searchCity() {
       html += '</ul>';
       resultDiv.innerHTML = html;
     } else {
-      resultDiv.innerHTML = `<p style="color:#e74c3c;">未找到城市 "${input}"，请尝试其他名称</p>`;
+      resultDiv.innerHTML = `<div style="padding:15px; color:#e74c3c; background:#ffeaea; border-radius:8px;">
+        <strong>未找到城市</strong><br>
+        <span style="font-size:14px;">未找到"${input}"，请尝试更完整或更准确的名称</span>
+      </div>`;
     }
   } catch (error) {
-    resultDiv.innerHTML = '<p style="color:#e74c3c;">网络请求失败，请检查网络连接</p>';
+    resultDiv.innerHTML = '<div style="padding:15px; color:#e74c3c; background:#ffeaea; border-radius:8px;">网络请求失败，请检查网络连接后重试</div>';
     console.error('搜索城市失败:', error);
   }
 }
@@ -863,7 +914,7 @@ async function selectCity(cityId, cityName, admName) {
   document.getElementById('citySearchInput').value = `${cityName} (${admName})`;
   
   
-  document.getElementById('citySearchResult').innerHTML = '';
+  document.getElementById('citySearchResult').innerHTML = '<div style="padding:12px; color:#27ae60; background:#eafaf1; border-radius:8px;">✓ 已选择城市：' + cityName + '</div>';
   
   
   await getCityWeather(cityId, cityName);
@@ -872,7 +923,12 @@ async function selectCity(cityId, cityName, admName) {
 
 async function getCityWeather(cityId, cityName) {
   const detailDiv = document.getElementById('weatherDetail');
-  detailDiv.innerHTML = `<p>⏳ 正在获取 ${cityName} 的天气数据...</p>`;
+  detailDiv.innerHTML = `
+    <div style="text-align:center; padding:20px 0;">
+      <div style="display:inline-block; width:30px; height:30px; border:3px solid #f3f3f3; border-top:3px solid #3498db; border-radius:50%; animation:spin 1s linear infinite;"></div>
+      <p style="margin-top:15px; color:#666;">正在获取 ${cityName} 的天气数据...</p>
+    </div>
+  `;
   
   const weatherUrl = `https://devapi.qweather.com/v7/weather/now?key=${QWEATHER_API_KEY}&location=${cityId}`;
   
@@ -885,62 +941,78 @@ async function getCityWeather(cityId, cityName) {
       
       
       const weatherIcons = {
-        '晴': '☀️', '多云': '⛅', '阴': '☁️',
-        '阵雨': '🌦️', '雷阵雨': '⛈️', '雨夹雪': '🌨️',
-        '小雨': '🌧️', '中雨': '🌧️', '大雨': '💧',
-        '暴雨': '🌊', '大暴雨': '🌊', '特大暴雨': '🌊',
-        '雪': '❄️', '阵雪': '🌨️', '小雪': '🌨️',
-        '中雪': '❄️', '大雪': '☃️', '暴雪': '☃️',
-        '雾': '🌫️', '霾': '😷', '沙尘暴': '🌪️'
+        '晴': '☀️', '多云': '⛅', '阴': '☁️', '少云': '🌤️',
+        '晴间多云': '🌤️', '阵雨': '🌦️', '雷阵雨': '⛈️', '雨夹雪': '🌨️',
+        '小雨': '🌧️', '中雨': '🌧️', '大雨': '💦', '暴雨': '🌊',
+        '大暴雨': '🌊', '特大暴雨': '🌊', '雪': '❄️', '阵雪': '🌨️',
+        '小雪': '🌨️', '中雪': '❄️', '大雪': '☃️', '暴雪': '☃️',
+        '雾': '🌫️', '霾': '😷', '沙尘暴': '🌪️', '浮尘': '💨',
+        '扬沙': '💨', '强沙尘暴': '🌪️', '浓雾': '🌁', '强浓雾': '🌁',
+        '轻雾': '🌫️', '大风': '💨'
       };
       
       const icon = weatherIcons[now.text] || '🌤️';
+      const tempColor = now.temp > 30 ? '#e74c3c' : now.temp > 20 ? '#e67e22' : now.temp > 10 ? '#27ae60' : '#3498db';
       
       detailDiv.innerHTML = `
-        <h3>${icon} ${cityName} 实时天气</h3>
-        <p><strong>天气状况：</strong>${now.text}</p>
-        <p><strong>当前温度：</strong><span style="font-size:1.2em; color:#e74c3c;">${now.temp}°C</span></p>
-        <p><strong>体感温度：</strong>${now.feelsLike}°C</p>
-        <p><strong>风向风力：</strong>${now.windDir} ${now.windScale}级</p>
-        <p><strong>相对湿度：</strong>${now.humidity}%</p>
-        <p><strong>大气压强：</strong>${now.pressure} hPa</p>
-        <p><strong>能见度：</strong>${now.vis} 公里</p>
-        <p style="font-size:0.9em; color:#7f8c8d; margin-top:15px;">数据更新时间：${now.obsTime ? new Date(now.obsTime).toLocaleTimeString('zh-CN') : '未知'}</p>
+        <h3>${icon} ${cityName}</h3>
+        <div style="background:white; padding:15px; border-radius:10px; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
+          <div style="text-align:center; margin-bottom:10px;">
+            <span style="font-size:32px; color:${tempColor}; font-weight:bold;">${now.temp}°C</span>
+            <div style="color:#7f8c8d; font-size:14px;">体感 ${now.feelsLike}°C</div>
+          </div>
+          <p><strong>天气状况：</strong><span style="float:right;">${now.text}</span></p>
+          <p><strong>风向风力：</strong><span style="float:right;">${now.windDir} ${now.windScale}级</span></p>
+          <p><strong>相对湿度：</strong><span style="float:right;">${now.humidity}%</span></p>
+          <p><strong>大气压强：</strong><span style="float:right;">${now.pressure} hPa</span></p>
+          <p><strong>能见度：</strong><span style="float:right;">${now.vis} 公里</span></p>
+        </div>
+        <div style="font-size:13px; color:#95a5a6; text-align:center; border-top:1px solid #eee; padding-top:10px;">
+          数据更新时间：${now.obsTime ? new Date(now.obsTime).toLocaleString('zh-CN', { hour12: false }) : '未知'}
+        </div>
       `;
       
       
-      updateExternalWeatherDisplay(cityName, now.temp, now.text);
+      updateExternalWeatherDisplay(cityName, now.temp, now.text, icon);
       
     } else {
-      detailDiv.innerHTML = `<p style="color:#e74c3c;">获取天气失败：${data.message || '未知错误'}</p>`;
+      detailDiv.innerHTML = `<div style="padding:15px; color:#e74c3c; background:#ffeaea; border-radius:8px;">
+        <strong>获取天气失败</strong><br>
+        <span style="font-size:14px;">${data.message || '请稍后重试'}</span>
+      </div>`;
     }
   } catch (error) {
-    detailDiv.innerHTML = '<p style="color:#e74c3c;">获取天气数据失败，请检查网络连接</p>';
+    detailDiv.innerHTML = '<div style="padding:15px; color:#e74c3c; background:#ffeaea; border-radius:8px;">获取天气数据失败，请检查网络连接</div>';
     console.error('获取天气失败:', error);
   }
 }
 
 
-function updateExternalWeatherDisplay(cityName, temperature, weatherText) {
+function updateExternalWeatherDisplay(cityName, temperature, weatherText, icon = '🌤️') {
   const externalDisplay = document.querySelector('#he-plugin-simple');
   if (externalDisplay) {
+    const tempColor = temperature > 30 ? '#e74c3c' : temperature > 20 ? '#e67e22' : temperature > 10 ? '#27ae60' : '#3498db';
     
     externalDisplay.innerHTML = `
       <div style="
-        background: rgba(0, 0, 0, 0.7); 
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(41, 128, 185, 0.85));
         color: white; 
-        padding: 8px 12px; 
-        border-radius: 8px; 
-        backdrop-filter: blur(5px);
+        padding: 12px 16px; 
+        border-radius: 12px; 
+        backdrop-filter: blur(8px);
         text-align: center;
-        min-width: 120px;
+        min-width: 140px;
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+        transition: all 0.3s;
       ">
-        <div style="font-size: 14px; font-weight: bold;">${cityName}</div>
-        <div style="font-size: 18px; margin: 4px 0;">${temperature}°C</div>
-        <div style="font-size: 12px; opacity: 0.9;">${weatherText}</div>
-        <div style="font-size: 10px; opacity: 0.7; margin-top: 4px;">点击管理</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          ${icon} ${cityName}
+        </div>
+        <div style="font-size: 24px; margin: 8px 0; font-weight: 700; color:${tempColor};">${temperature}°C</div>
+        <div style="font-size: 13px; opacity: 0.95; margin-bottom: 6px;">${weatherText}</div>
+        <div style="font-size: 11px; opacity: 0.7; letter-spacing: 0.5px;">点击管理</div>
       </div>
     `;
   }
@@ -949,15 +1021,72 @@ function updateExternalWeatherDisplay(cityName, temperature, weatherText) {
 
 window.addEventListener('load', function() {
   setTimeout(function() {
-    if (!document.getElementById('qweather-script')) {
-      const script = document.createElement('script');
-      script.id = 'qweather-script';
-      script.src = 'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0';
-      script.async = true;
+    
+    if (window.HE_WEATHER_INITIALIZED || heWeatherInitialized) {
+      console.log('和风天气官方插件已就绪。');
+      updateExternalWeatherDisplay('当前位置', '--', '点击查询');
+      return;
+    }
+    
+    
+    const externalDisplay = document.querySelector('#he-plugin-simple');
+    if (externalDisplay && externalDisplay.innerHTML.trim() === '') {
+      updateExternalWeatherDisplay('天气服务', '--', '点击查询');
+    }
+    
+    
+    const cdnSources = [
+      'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0',
+      'https://widget.qweather.cn/simple/static/js/he-simple-common.js?v=2.0' 
+    ];
+    
+    let currentSourceIndex = 0;
+    const script = document.createElement('script');
+    script.id = 'qweather-script';
+    
+    
+    function loadScript(source) {
+      script.src = source;
+      script.onload = function() {
+        console.log('和风天气插件加载成功:', source);
+        window.HE_WEATHER_INITIALIZED = true;
+        heWeatherInitialized = true;
+        
+        setTimeout(() => {
+          updateExternalWeatherDisplay('天气服务', '就绪', '点击查询', '✅');
+        }, 300);
+      };
+      
+      script.onerror = function() {
+        console.warn('和风天气CDN加载失败，尝试备用源:', source);
+        currentSourceIndex++;
+        if (currentSourceIndex < cdnSources.length) {
+          loadScript(cdnSources[currentSourceIndex]); 
+        } else {
+          console.log('所有和风天气CDN源均尝试失败，将使用自定义界面。');
+          
+          updateExternalWeatherDisplay('天气服务', '--', '点击查询', '🌤️');
+        }
+      };
+      
       document.body.appendChild(script);
     }
-  }, 1000);
+    
+    
+    loadScript(cdnSources[currentSourceIndex]);
+    
+  }, 800); 
 });
+
+
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+document.head.appendChild(style);
 </script>
 
 
