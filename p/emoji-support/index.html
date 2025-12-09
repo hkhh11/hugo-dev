@@ -609,8 +609,11 @@
 
 
 <div id="weather-plugin-wrapper">
+    
+    <script src="https://cdn.sencdn.com/widget2/static/js/bundle.js"></script>
+    
+    
     <script>
-      (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}})(window,document,"script","https://cdn.sencdn.com/widget2/static/js/bundle.js","window.SeniverseWeatherWidget");
       
       window.SeniverseWeatherWidget('show', {
         flavor: "bubble",
@@ -633,7 +636,6 @@
 <script>
   new CozeWebSDK.WebChatClient({
     config: {
-      
       bot_id: '7581667069725474867',
     },
     componentProps: {
@@ -660,6 +662,7 @@
         left: 20px !important;
         bottom: 20px !important;
         z-index: 99999 !important;
+        display: block !important;  
     }
     
      
